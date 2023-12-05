@@ -1,0 +1,38 @@
+
+public class Complex {
+    float real, imag;
+
+    Complex() {
+    }
+
+    Complex(float x, float y) {
+        real = x;
+        imag = y;
+    }
+
+    Complex add(Complex a) {
+        Complex temp = new Complex();
+        temp.real = this.real + a.real;
+        temp.imag = this.imag + a.imag;
+        return temp;
+    }
+
+    Complex sub(Complex a) {
+        Complex temp = new Complex();
+        temp.real = this.real - a.real;
+        temp.imag = this.imag - a.imag;
+        return temp;
+    }
+
+    public static void main(String[] args) {
+        Complex c1 = new Complex(5.6f, 6.12f);
+        Complex c2 = new Complex(12.6f, 4.03f);
+        Complex res;
+
+        res = c1.add(c2);
+        System.out.printf("Addition: %2.2f+%2.2f\n", res.real, res.imag);
+
+        res = c1.sub(c2);
+        System.out.printf("Subtraction: %2.2f+%2.2f\n", res.real, res.imag);
+    }
+}
