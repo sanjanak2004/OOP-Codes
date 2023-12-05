@@ -1,0 +1,50 @@
+import java.util.Scanner;
+
+class Publications {
+    String title;
+    int copies, price;
+
+    void saleCopy() {
+    }
+}
+
+class Book {
+    String title;
+    int copies, price;
+
+    void saleCopy() {
+        price = 250;
+        System.out.println("Total Sale: " + copies * price);
+    }
+
+    void orderCopies() {
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter copies: ");
+        copies = in.nextInt();
+    }
+}
+
+class Magazine {
+    String title;
+    int copies, price;
+
+    void saleCopy() {
+    }
+
+    void orderQty() {
+    }
+
+    void currentIssue() {
+    }
+
+    void receiveIssue() {
+    }
+}
+
+public class Pubs {
+    public static void main(String[] args) {
+        Book b = new Book();
+        b.orderCopies();
+        b.saleCopy();
+    }
+}
