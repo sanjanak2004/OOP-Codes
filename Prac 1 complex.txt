@@ -1,3 +1,4 @@
+import java.util.Scanner;
 
 public class Complex {
     float real, imag;
@@ -24,15 +25,74 @@ public class Complex {
         return temp;
     }
 
+    Complex multiply(Complex a) {
+        Complex temp = new Complex();
+        temp.real = this.real * a.real - this.imag * a.imag;
+        temp.imag = this.real * a.imag + this.imag * a.real;
+        return temp;
+    }
+
+    Complex divide(Complex a) {
+        Complex temp = new Complex();
+        float denominator = a.real * a.real + a.imag * a.imag;
+        temp.real = (this.real * a.real + this.imag * a.imag) / denominator;
+        temp.imag = (this.imag * a.real - this.real * a.imag) / denominator;
+        return temp;
+    }
+
     public static void main(String[] args) {
-        Complex c1 = new Complex(5.6f, 6.12f);
-        Complex c2 = new Complex(12.6f, 4.03f);
-        Complex res;
+        Scanner scanner = new Scanner(System.in);
 
-        res = c1.add(c2);
-        System.out.printf("Addition: %2.2f+%2.2f\n", res.real, res.imag);
+        System.out.println("Enter the real part of the first complex number:");
+        float real1 = scanner.nextFloat();
 
-        res = c1.sub(c2);
-        System.out.printf("Subtraction: %2.2f+%2.2f\n", res.real, res.imag);
+        System.out.println("Enter the imaginary part of the first complex number:");
+        float imag1 = scanner.nextFloat();
+
+        System.out.println("Enter the real part of the second complex number:");
+        float real2 = scanner.nextFloat();
+
+        System.out.println("Enter the imaginary part of the second complex number:");
+        float imag2 = scanner.nextFloat();
+
+        Complex c1 = new Complex(real1, imag1);
+        Complex c2 = new Complex(real2, imag2);
+        Complex res = new Complex();
+
+        System.out.println("Choose operation:");
+        System.out.println("1. Addition");
+        System.out.println("2. Subtraction");
+        System.out.println("3. Multiplication");
+        System.out.println("4. Division");
+
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                res = c1.add(c2);
+                System.out.printf("Addition: %2.2f + %2.2f\n", res.real, res.imag);
+                break;
+
+            case 2:
+                res = c1.sub(c2);
+                System.out.printf("Subtraction: %2.2f + %2.2f\n", res.real, res.imag);
+                break;
+
+            case 3:
+                res = c1.multiply(c2);
+                System.out.printf("Multiplication: %2.2f + %2.2f\n", res.real, res.imag);
+                break;
+
+            case 4:
+                res = c1.divide(c2);
+                System.out.printf("Division: %2.2f + %2.2f\n", res.real, res.imag);
+                break;
+
+            default:
+                System.out.println("Invalid choice");
+        }
+
+        // Close the scanner to prevent resource leak
+        scanner.close();
     }
 }
