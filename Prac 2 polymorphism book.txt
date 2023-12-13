@@ -1,50 +1,119 @@
+package a;
 import java.util.Scanner;
 
-class Publications {
+class Publication {
     String title;
-    int copies, price;
+    int price, copies;
+    static int total = 0;
+    Scanner sc = new Scanner(System.in);
 
-    void saleCopy() {
+    void salecopy() {
+        System.out.println("\nTotal sale of publication is: " + total);
     }
 }
 
-class Book {
-    String title;
-    int copies, price;
+class Book extends Publication {
+    String Author;
 
-    void saleCopy() {
-        price = 250;
-        System.out.println("Total Sale: " + copies * price);
+    public void getdata() {
+        System.out.println("Enter Book details: ");
+        System.out.println("Enter title of book: ");
+        title = sc.nextLine();
+        System.out.println("Enter Author of book: ");
+        Author = sc.nextLine();
+        System.out.println("Enter price of book: ");
+        price = sc.nextInt();
+        sc.nextLine(); // Consume the newline character
+        System.out.println("Enter the number of copies: ");
+        copies = sc.nextInt();
+        sc.nextLine(); // Consume the newline character
     }
 
-    void orderCopies() {
-        Scanner in = new Scanner(System.in);
-        System.out.println("Enter copies: ");
-        copies = in.nextInt();
+    void ordercopies() {
+        System.out.println("\nNumber of copies ordered: " + copies);
+    }
+
+    void salecopy() {
+        int sale = price * copies;
+        System.out.println("Sale of book is: " + sale);
+        total = total + sale;
     }
 }
 
-class Magazine {
-    String title;
-    int copies, price;
+class Magazine extends Publication {
+    int orderQuantity;
+    String currentIssue;
 
-    void saleCopy() {
-    }
-
-    void orderQty() {
-    }
-
-    void currentIssue() {
+    void getdata1() {
+        System.out.println("Enter title of magazine: ");
+        title = sc.nextLine();
+        System.out.println("Enter Current issue: ");
+        currentIssue = sc.nextLine();
+        System.out.println("Enter Order Quantities: ");
+        orderQuantity = sc.nextInt();
+        sc.nextLine(); // Consume the newline character
+        System.out.println("Enter price of Magazine: ");
+        price = sc.nextInt();
+        sc.nextLine(); // Consume the newline character
     }
 
     void receiveIssue() {
+        System.out.println("\nCurrent Issue: " + currentIssue);
+    }
+
+    void salecopy() {
+        int sale = price * orderQuantity;
+        System.out.println("Sale of magazine: " + sale);
+        total = total + sale;
     }
 }
 
 public class Pubs {
     public static void main(String[] args) {
-        Book b = new Book();
-        b.orderCopies();
-        b.saleCopy();
+        int choice;
+        String ans;
+        Scanner sc = new Scanner(System.in);
+
+        do {
+            System.out.println("\nChoices are: ");
+            System.out.println("\n1. Book");
+            System.out.println("\n2. Magazine");
+            System.out.println("\n3. Publication");
+            System.out.println("\n4. Exit");
+            System.out.println("\nEnter the choice: ");
+            choice = sc.nextInt();
+            sc.nextLine(); // Consume the newline character
+
+            switch (choice) {
+                case 1:
+                    Book b = new Book();
+                    b.getdata();
+                    b.ordercopies();
+                    b.salecopy();
+                    break;
+
+                case 2:
+                    Magazine m = new Magazine();
+                    m.getdata1();
+                    m.receiveIssue();
+                    m.salecopy();
+                    break;
+
+                case 3:
+                    Publication p = new Publication();
+                    p.salecopy();
+                    break;
+
+                case 4:
+                    System.out.println("Exit");
+                    break;
+
+                default:
+                    System.out.println("Wrong choice");
+            }
+
+            System.out.println("\nDo you want to continue? Yes or No");
+            ans = sc.nextLine();
+        } while (ans.equalsIgnoreCase("Yes"));
     }
 }
