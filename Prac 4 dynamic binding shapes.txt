@@ -1,4 +1,4 @@
-package Prac4;
+package s4;
 
 import java.util.Scanner;
 
