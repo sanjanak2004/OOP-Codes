@@ -1,9 +1,11 @@
 package s4;
+
 import java.util.Scanner;
 
 class Employee {
     String name, add, mail;
-    float id, mobile, basic;
+    int id, mobile;
+    float basic;
 
     void salary() {
         float da, hra, pf, gross, cf;
@@ -12,38 +14,58 @@ class Employee {
         hra = basic * 0.1f;
         pf = basic * 0.12f;
         cf = basic * 0.1f;
-        gross = basic + da + hra - pf-cf;
+        gross = basic + da + hra - pf - cf;
 
         System.out.println("Name: " + name);
+        System.out.println("ID: " + id);
+        System.out.println("Address: " + add);
+        System.out.println("Email: " + mail);
+        System.out.println("Mobile: " + mobile);
         System.out.println("Basic Salary: " + basic);
         System.out.println("Gross Salary: " + gross);
     }
 }
 
 class Programmer extends Employee {
-    Programmer(String name, int sal) {
+    Programmer(String name, int id, String add, String mail, int mobile, int sal) {
         this.name = name;
+        this.id = id;
+        this.add = add;
+        this.mail = mail;
+        this.mobile = mobile;
         basic = sal;
     }
 }
 
 class TeamLead extends Employee {
-    TeamLead(String name, int sal) {
+    TeamLead(String name, int id, String add, String mail, int mobile, int sal) {
         this.name = name;
+        this.id = id;
+        this.add = add;
+        this.mail = mail;
+        this.mobile = mobile;
         basic = sal;
     }
 }
 
 class APM extends Employee {
-    APM(String name, int sal) {
+    APM(String name, int id, String add, String mail, int mobile, int sal) {
         this.name = name;
+        this.id = id;
+        this.add = add;
+        this.mail = mail;
+        this.mobile = mobile;
         basic = sal;
     }
 }
 
 class ProjectManager extends Employee {
-    ProjectManager(String name, int sal) {
+    ProjectManager(String name, int id, String add, String mail, int mobile, int sal) {
         this.name = name;
+        this.id = id;
+        this.add = add;
+        this.mail = mail;
+        this.mobile = mobile;
         basic = sal;
     }
 }
@@ -52,32 +74,72 @@ public class Inheritance {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        // Programmer
         System.out.print("Enter Programmer's name: ");
         String programmerName = scanner.nextLine();
+        System.out.print("Enter Programmer's ID: ");
+        int programmerId = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+        System.out.print("Enter Programmer's address: ");
+        String programmerAdd = scanner.nextLine();
+        System.out.print("Enter Programmer's email: ");
+        String programmerMail = scanner.nextLine();
+        System.out.print("Enter Programmer's mobile number: ");
+        int programmerMobile = scanner.nextInt();
         System.out.print("Enter Programmer's salary: ");
         int programmerSalary = scanner.nextInt();
-        Programmer p = new Programmer(programmerName, programmerSalary);
+        Programmer p = new Programmer(programmerName, programmerId, programmerAdd, programmerMail, programmerMobile, programmerSalary);
         p.salary();
 
+        // TeamLead
         System.out.print("\nEnter Team Lead's name: ");
         String teamLeadName = scanner.next();
+        System.out.print("Enter Team Lead's ID: ");
+        int teamLeadId = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+        System.out.print("Enter Team Lead's address: ");
+        String teamLeadAdd = scanner.nextLine();
+        System.out.print("Enter Team Lead's email: ");
+        String teamLeadMail = scanner.nextLine();
+        System.out.print("Enter Team Lead's mobile number: ");
+        int teamLeadMobile = scanner.nextInt();
         System.out.print("Enter Team Lead's salary: ");
         int teamLeadSalary = scanner.nextInt();
-        TeamLead t = new TeamLead(teamLeadName, teamLeadSalary);
+        TeamLead t = new TeamLead(teamLeadName, teamLeadId, teamLeadAdd, teamLeadMail, teamLeadMobile, teamLeadSalary);
         t.salary();
 
+        // APM
         System.out.print("\nEnter APM's name: ");
         String apmName = scanner.next();
+        System.out.print("Enter APM's ID: ");
+        int apmId = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+        System.out.print("Enter APM's address: ");
+        String apmAdd = scanner.nextLine();
+        System.out.print("Enter APM's email: ");
+        String apmMail = scanner.nextLine();
+        System.out.print("Enter APM's mobile number: ");
+        int apmMobile = scanner.nextInt();
         System.out.print("Enter APM's salary: ");
         int apmSalary = scanner.nextInt();
-        APM a = new APM(apmName, apmSalary);
+        APM a = new APM(apmName, apmId, apmAdd, apmMail, apmMobile, apmSalary);
         a.salary();
 
+        // ProjectManager
         System.out.print("\nEnter Project Manager's name: ");
         String pmName = scanner.next();
+        System.out.print("Enter Project Manager's ID: ");
+        int pmId = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+        System.out.print("Enter Project Manager's address: ");
+        String pmAdd = scanner.nextLine();
+        System.out.print("Enter Project Manager's email: ");
+        String pmMail = scanner.nextLine();
+        System.out.print("Enter Project Manager's mobile number: ");
+        int pmMobile = scanner.nextInt();
         System.out.print("Enter Project Manager's salary: ");
         int pmSalary = scanner.nextInt();
-        ProjectManager pm = new ProjectManager(pmName, pmSalary);
+        ProjectManager pm = new ProjectManager(pmName, pmId, pmAdd, pmMail, pmMobile, pmSalary);
         pm.salary();
 
         // Close the scanner to avoid resource leak
