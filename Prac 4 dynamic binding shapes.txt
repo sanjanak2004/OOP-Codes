@@ -1,73 +1,68 @@
-package assignment4;
-import java.util.*;
-abstract class shape
-{
-	
-int a,b;
-Scanner s=new Scanner(System.in);
+package Prac4;
 
-void input()
-{
-	System.out.println("Enter the value of a and b");
-	a=s.nextInt();
-	b=s.nextInt();
+import java.util.Scanner;
 
-	}
-abstract public void printarea();
+abstract class Shape {
+    int length, breadth;
+    Scanner sc = new Scanner(System.in);
 
-}
-class rectangle extends shape
-{
-public int area_rect;
-public void printarea()
-{
-area_rect=a*b;
-System.out.println("Length of rectangle: "+a +"breadth of rectangle: "+b);
-System.out.println("The area of rectangle is:"+area_rect);
-}
-}
-class triangle extends shape
-{
-double area_tri;
-public void printarea()
-{
-System.out.println("Base of triangle: "+a +"height of triangle: "+b);
-area_tri=(0.5*a*b);
-System.out.println("The area of triangle is:"+area_tri);
-}
-}
-public class Dynamic
-{
-public static void main(String[] args)
-{
-shape s;   //reference variable of class shape
-Scanner sc=new Scanner(System.in);
-int choice;
-do
-{
-    System.out.println("Enter the choice :");
-    choice=sc.nextInt();
+    public void getData() {
+        System.out.println("Enter Length: ");
+        length = sc.nextInt();
+        System.out.println("Enter Breadth: ");
+        breadth = sc.nextInt();
+    }
 
-switch(choice)
-{
-    case 1:
-
-s=new rectangle();   //object create rectangle
-s.input();
-s.printarea();           
-break;
-    case 2:
-    	
-s=new triangle();   //object create triangle
-s.input();
-s.printarea();
-break;
-    case 3: System.out.println("exit");
-    break;
-
-default:System.out.println("wrong choice");
-    return;
+    abstract public void printArea();
 }
-}while(choice!=4);
+
+class Rectangle extends Shape {
+    int recArea;
+
+    public void printArea() {
+        recArea = length * breadth;
+        System.out.println("Area of Rectangle = " + recArea);
+    }
 }
+
+class Triangle extends Shape {
+    double triArea;
+
+    public void printArea() {
+        triArea = 0.5 * length * breadth;
+        System.out.println("Area of Triangle = " + triArea);
+    }
+}
+
+public class Dynamic {
+
+    public static void main(String[] args) {
+        Shape p;
+        Scanner sc = new Scanner(System.in);
+        int ch;
+
+        do {
+            System.out.println("\n1. Area of Rectangle\n2. Area of Triangle\n3. Exit");
+            System.out.println("\nEnter your choice: ");
+            ch = sc.nextInt();
+
+            switch (ch) {
+                case 1:
+                    p = new Rectangle();
+                    p.getData();
+                    p.printArea();
+                    break;
+
+                case 2:
+                    p = new Triangle();
+                    p.getData();
+                    p.printArea();
+                    break;
+
+                case 3:
+                    System.out.println("Exit");
+                    break;
+            }
+        } while (ch < 3);
+    }
 }
