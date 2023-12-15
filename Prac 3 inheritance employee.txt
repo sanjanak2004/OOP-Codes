@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 class Employee {
     String name, add, mail;
     float id, mobile, basic;
@@ -47,16 +49,37 @@ class ProjectManager extends Employee {
 
 public class Inheritance {
     public static void main(String[] args) {
-        Programmer p = new Programmer("Amar Kulkarni", 40000);
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter Programmer's name: ");
+        String programmerName = scanner.nextLine();
+        System.out.print("Enter Programmer's salary: ");
+        int programmerSalary = scanner.nextInt();
+        Programmer p = new Programmer(programmerName, programmerSalary);
         p.salary();
 
-        TeamLead t = new TeamLead("Sayali Mohite", 60000);
+        System.out.print("\nEnter Team Lead's name: ");
+        String teamLeadName = scanner.next();
+        System.out.print("Enter Team Lead's salary: ");
+        int teamLeadSalary = scanner.nextInt();
+        TeamLead t = new TeamLead(teamLeadName, teamLeadSalary);
         t.salary();
 
-        APM a = new APM("Ram Deshmukh", 80000);
+        System.out.print("\nEnter APM's name: ");
+        String apmName = scanner.next();
+        System.out.print("Enter APM's salary: ");
+        int apmSalary = scanner.nextInt();
+        APM a = new APM(apmName, apmSalary);
         a.salary();
 
-        ProjectManager pm = new ProjectManager("Abhay Joshi", 100000);
+        System.out.print("\nEnter Project Manager's name: ");
+        String pmName = scanner.next();
+        System.out.print("Enter Project Manager's salary: ");
+        int pmSalary = scanner.nextInt();
+        ProjectManager pm = new ProjectManager(pmName, pmSalary);
         pm.salary();
+
+        // Close the scanner to avoid resource leak
+        scanner.close();
     }
 }
