@@ -1,3 +1,4 @@
+package s4;
 import java.util.Scanner;
 
 class Employee {
@@ -11,7 +12,7 @@ class Employee {
         hra = basic * 0.1f;
         pf = basic * 0.12f;
         cf = basic * 0.1f;
-        gross = basic + da + hra - pf;
+        gross = basic + da + hra - pf-cf;
 
         System.out.println("Name: " + name);
         System.out.println("Basic Salary: " + basic);
