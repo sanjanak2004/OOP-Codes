@@ -1,136 +1,157 @@
-package Template;
+package s4;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
 
+public class NumberStringOperations {
+    static int count = 0;
 
-//import java.io.*;
-//import java.lang.*;
-import java.util.*;
-public class Assignment_No7 
-{
-     static int count=0;
-     static void even_odd(int n)
-     {
-         if(n%2==0)
-         {
-            System.out.println(n+"is even");
+    static void evenOdd(int n) {
+        if (n % 2 == 0) {
+            System.out.println(n + " is even");
             count++;
-         }
-        else
-        {
-            System.out.println(n+"is odd");
+        } else {
+            System.out.println(n + " is odd");
         }
-     }
-     
-     public static void palindrome(String str)
-     {
-        String reverse = new StringBuffer(str).reverse().toString();
-        if (str.equals(reverse))
-        {
-        System.out.println("String is palindrome");
+    }
+
+    public static void palindrome(String str) {
+        String reverse = new StringBuilder(str).reverse().toString();
+        if (str.equals(reverse)) {
+            System.out.println("String '" + str + "' is a palindrome");
+            count++;
+        } else {
+            System.out.println("String '" + str + "' is not a palindrome");
+        }
+    }
+
+    public static void primeNumber(int num) {
+        if (num < 2) {
+            System.out.println(num + " is not prime");
+            return;
+        }
+
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) {
+                System.out.println(num + " is not prime");
+                return;
+            }
+        }
+        System.out.println(num + " is prime");
         count++;
+    }
+
+    public static void check(int choice, int x) {
+        switch (choice) {
+            case 1:
+                evenOdd(x);
+                break;
+            case 2:
+                primeNumber(x);
+                break;
+            case 3:
+                palindrome(Integer.toString(x));
+                break;
+            default:
+                System.out.println("Enter the correct option!");
         }
-        else
-        {
-        System.out.println("String is not palindrome");
-        } 
     }
-public static void prime_number(int num)
-{
-          int i;
-for( i=2;i<=num-1;i++){
-           if(num%2==0){
-            break;
-           }
-          }
-          if(i==num){
-System.out.println(num+"is prime");
-           count++;
-          }
-else{
-System.out.println(num+"is not prime");
-          }
-     }
-public static void check(int ch,int x)
-{       switch(ch)
-       {
-           case 1:
-            even_odd(x);
-               break;
-           case 2:
-            prime_number(x);
-               break;
-           default:
-System.out.println("Enter the correct option!");
-       }
-     }
-static void number_op()
-{
-  int n,element,choice;
-  Scanner sc=new Scanner(System.in);
-  
-ArrayList<Integer>nums=new ArrayList<Integer>();
-        System.out.println("Enter the numbers of element:");
-        n=sc.nextInt();//n=4
+
+    static void performOperations(ArrayList<Integer> nums, int choice) {
+        Iterator<Integer> itr = nums.iterator();
+        count = 0;
+
+        while (itr.hasNext()) {
+            check(choice, itr.next());
+        }
+
+        if (choice == 1) {
+            System.out.println("The number of Even numbers is " + count);
+            System.out.println("The number of Odd numbers is " + (nums.size() - count));
+        } else if (choice == 2) {
+            System.out.println("The number of prime numbers is " + count);
+            System.out.println("The number of non-prime numbers is " + (nums.size() - count));
+        }
+    }
+
+    static void numberOperations() {
+        int n, element, choice;
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Integer> nums = new ArrayList<>();
+
+        System.out.println("Enter the number of elements:");
+        n = sc.nextInt();
         System.out.println("Enter the elements:");
-        
-for(int i=0;i<n;i++)//n=0,1,2,3
-{
-        element=sc.nextInt();// 7,9,12,22
-        nums.add(element);//nums.add(7) 7,9,12,22
-}
-        System.out.println("Enter the operation to be performed");
-        System.out.println("1.odd or even");
-        System.out.println("2.prime number");
 
-      choice=sc.nextInt();
-      Iterator itr=nums.iterator();
-      count=0;
-      while(itr.hasNext())
-      {
-       check(choice,(int)itr.next());
-      }
-      if(choice==1)
-      {
-        System.out.println("The number of Even number is "+count);
-        System.out.println("The number of Odd number is "+(nums.size()-count));
-      }
-      else
-      {
-        System.out.println("The number of prime number is "+count);
-        System.out.println("The number of non-prime number is "+(nums.size()-count));
-      }
+        for (int i = 0; i < n; i++) {
+            element = sc.nextInt();
+            nums.add(element);
+        }
+
+        System.out.println("Choose operation:");
+        System.out.println("1. Check Even/Odd");
+        System.out.println("2. Check Prime Number");
+        System.out.println("3. Check Palindrome");
+        System.out.println("4. Exit");
+
+        while (true) {
+            choice = sc.nextInt();
+            if (choice == 4) {
+                System.out.println("Exiting number operations.");
+                break;
+            }
+
+            performOperations(nums, choice);
+
+            System.out.println("Choose another operation or enter 4 to exit number operations:");
+        }
     }
 
-    static void string_op(){
-      int n;
-      String word;
-      Scanner sc=new Scanner(System.in);
-ArrayList<String>words=new ArrayList<String>();
-System.out.println("Enetrthre numbers of element:");
-      n=sc.nextInt();
-System.out.println("Enter the elements:");
-for(int i=0;i<n;i++){
-       word=sc.next();
-words.add(word);
-      }
-      count=0;
-for(String w:words){
-        palindrome(w);
-      }
+    static void stringOperations() {
+        int n;
+        String word;
+        Scanner sc = new Scanner(System.in);
+        ArrayList<String> words = new ArrayList<>();
 
-System.out.println("The number of PALINDROMES is:"+ count);
-    } 
+        System.out.println("Enter the number of elements:");
+        n = sc.nextInt();
+        System.out.println("Enter the elements:");
+
+        for (int i = 0; i < n; i++) {
+            word = sc.next();
+            words.add(word);
+        }
+
+        count = 0;
+
+        for (String w : words) {
+            palindrome(w);
+        }
+
+        System.out.println("The number of palindromes is: " + count);
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        //Choose the type of List needed
-System.out.println("Choose Type:");
-System.out.println("1. String");
-System.out.println("2. Integer");
-        int ch = sc.nextInt();
+        while (true) {
+            // Choose the type of List needed
+            System.out.println("Choose Type:");
+            System.out.println("1. String");
+            System.out.println("2. Integer");
+            System.out.println("3. Exit");
 
-if(ch == 2)
-number_op(); //Calls Intergerarraylist
-        else
-string_op(); //Calls String arraylist
+            int ch = sc.nextInt();
+
+            if (ch == 3) {
+                System.out.println("Exiting program.");
+                break;
+            }
+
+            if (ch == 2)
+                numberOperations(); // Calls Integer ArrayList
+            else
+                stringOperations(); // Calls String ArrayList
+        }
     }
-   }
+}
