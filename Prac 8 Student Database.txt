@@ -1,0 +1,252 @@
+package s4;
+import java.io.*;
+import java.util.Scanner;
+
+public class StudentRecord {
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+    public void addRecords() throws IOException {
+        PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("st.txt", true)));
+        String studentName, address;
+        int studentId, rollNo, studentClass;
+        float marks;
+        String s;
+        boolean addMore = false;
+
+        do {
+            System.out.print("\nEnter Student Name: ");
+            studentName = br.readLine();
+
+            System.out.print("Student Id: ");
+            studentId = Integer.parseInt(br.readLine());
+
+            System.out.print("Roll no: ");
+            rollNo = Integer.parseInt(br.readLine());
+
+            System.out.print("Address: ");
+            address = br.readLine();
+
+            System.out.print("Class: ");
+            studentClass = Integer.parseInt(br.readLine());
+
+            System.out.print("Marks: ");
+            marks = Float.parseFloat(br.readLine());
+
+            pw.println(studentName + " " + studentId + " " + rollNo + " " + address + " " + studentClass + " " + marks);
+
+            System.out.print("\nRecord added successfully!\nDo you want to add more records? (y/n): ");
+            s = br.readLine();
+
+            if (s.equalsIgnoreCase("y")) {
+                addMore = true;
+                System.out.println();
+            } else {
+                addMore = false;
+            }
+        } while (addMore);
+
+        pw.close();
+        showMenu();
+    }
+public void readRecords() throws IOException {
+    try {
+        BufferedReader file = new BufferedReader(new FileReader("st.txt"));
+        String line;
+
+        while ((line = file.readLine()) != null) {
+            System.out.println(line);
+        }
+
+        file.close();
+    } catch (FileNotFoundException e) {
+        System.out.println("\nERROR: File not Found!!!");
+    }
+
+    showMenu(); // Show the menu after displaying records
+}
+
+
+    public void searchRecords() throws IOException {
+        try {
+            BufferedReader file = new BufferedReader(new FileReader("st.txt"));
+            String line;
+            int flag = 0;
+
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Enter the id of the student you want to search: ");
+            String searchId = sc.next();
+
+            while ((line = file.readLine()) != null) {
+                String[] parts = line.split(" ");
+
+                if (searchId.equalsIgnoreCase(parts[1])) {
+                    System.out.println("Record found");
+                    System.out.println(line);
+                    System.out.println("");
+                    flag = 1;
+                    break;
+                }
+            }
+
+            if (flag == 0)
+                System.out.println("Record not found");
+
+            file.close();
+            showMenu();
+        } catch (FileNotFoundException e) {
+            System.out.println("\nERROR: File not Found!!!");
+            showMenu();
+        }
+    }
+
+    public void deleteRecords() throws IOException {
+        try {
+            BufferedReader file = new BufferedReader(new FileReader("st.txt"));
+            PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("temp.txt")));
+            String line;
+            int flag = 0;
+
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Enter the name of the student you want to delete: ");
+            String deleteName = sc.next();
+
+            while ((line = file.readLine()) != null) {
+                String[] parts = line.split(" ");
+
+                if (!deleteName.equalsIgnoreCase(parts[0])) {
+                    pw.println(line);
+                } else {
+                    System.out.println("Record found and deleted");
+                    flag = 1;
+                }
+            }
+
+            file.close();
+            pw.close();
+
+            if (flag == 0) {
+                System.out.println("Record not found");
+            }
+
+            File oldFile = new File("st.txt");
+            File newFile = new File("temp.txt");
+
+            if (oldFile.delete()) {
+                System.out.println("Record deleted successfully");
+            } else {
+                System.out.println("Error deleting record");
+            }
+
+            if (newFile.renameTo(oldFile)) {
+                System.out.println("File renamed successfully");
+            } else {
+                System.out.println("Error renaming file");
+            }
+
+            showMenu();
+        } catch (FileNotFoundException e) {
+            System.out.println("\nERROR: File not Found!!!");
+            showMenu();
+        }
+    }
+
+    public void updateRecords() throws IOException {
+        try {
+            BufferedReader file = new BufferedReader(new FileReader("st.txt"));
+            PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("temp.txt")));
+            String line;
+            int flag = 0;
+
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Enter the name of the student you want to update: ");
+            String updateName = sc.next();
+
+            while ((line = file.readLine()) != null) {
+                String[] parts = line.split(" ");
+
+                if (!updateName.equalsIgnoreCase(parts[0])) {
+                    pw.println(line);
+                } else {
+                    System.out.println("Record found");
+                    flag = 1;
+                    System.out.print("Enter updated marks: ");
+                    String updatedMarks = sc.next();
+                    pw.println(parts[0] + " " + parts[1] + " " + parts[2] + " " + parts[3] + " " + parts[4] + " " + updatedMarks);
+                }
+            }
+
+            file.close();
+            pw.close();
+
+            if (flag == 0) {
+                System.out.println("Record not found");
+            }
+
+            File oldFile = new File("st.txt");
+            File newFile = new File("temp.txt");
+
+            if (oldFile.delete()) {
+                System.out.println("Record updated successfully");
+            } else {
+                System.out.println("Error updating record");
+            }
+
+            if (newFile.renameTo(oldFile)) {
+                System.out.println("File renamed successfully");
+            } else {
+                System.out.println("Error renaming file");
+            }
+
+            showMenu();
+        } catch (FileNotFoundException e) {
+            System.out.println("\nERROR: File not Found!!!");
+            showMenu();
+        }
+    }
+
+    public void clear(String filename) throws IOException {
+        PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(filename)));
+        pw.close();
+        System.out.println("\nAll Records cleared successfully!");
+        showMenu();
+    }
+
+    public void showMenu() throws IOException {
+        System.out.println("");
+        System.out.print("1. Add Records\n2. Display Records\n3. Clear All Records\n4. Search Records\n5. Delete Records\n6. Update Records\n7. Exit\n\nEnter your choice: ");
+        int choice = Integer.parseInt(br.readLine());
+        System.out.println("");
+
+        switch (choice) {
+            case 1:
+                addRecords();
+                break;
+            case 2:
+                readRecords();
+                break;
+            case 3:
+                clear("st.txt");
+                break;
+            case 4:
+                searchRecords();
+                break;
+            case 5:
+                deleteRecords();
+                break;
+            case 6:
+                updateRecords();
+                break;
+            case 7:
+                System.exit(0);
+                break;
+            default:
+                System.out.println("\nInvalid Choice !");
+                break;
+        }
+    }
+
+    public static void main(String args[]) throws IOException {
+        StudentRecord call = new StudentRecord();
+        call.showMenu();
+    }
+}
